@@ -44,9 +44,10 @@ function CommunityInfo() {
       setLoading(true);
       const provider = new BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-
+      const startIndex = 0; // Start from index 0
+      const numUsers = 4000; // Fetch maximum 100 users
       console.log(`Fetching Matrix Users for User ID: ${userId}, Level: ${level}`);
-      const users = await contract.getMatrixUsers(userId, level);
+      const users = await contract.getMatrixUsers(userId, level, startIndex, numUsers);
 
       const formattedUsers = users.map((user, index) => ({
         serialNumber: index + 1,

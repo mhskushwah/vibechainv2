@@ -121,8 +121,13 @@ const MyTeam = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
 
+      const layer = 0; // Direct team ke liye 1 rakh lo (ya jo bhi correct layer ho)
+    const num = 100; // Max number of users you want to fetch
+
+    const users = await contract.getTeamUsers(userId, layer, num);
+
+
       // Fetch the direct team users from contract
-      const users = await contract.getDirectTeamUsers(userId);
 
       console.log("Direct Team Users:", users);
 

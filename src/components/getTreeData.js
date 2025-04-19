@@ -45,7 +45,10 @@ export const fetchUserTree = async (userId, depth = 2, level = 0) => {
 
     if (depth > 0) {
       try {
-        const layer0Users = await contract.getMatrixUsers(userId, 0);
+        const startIndex = 0; // Start from index 0
+        const numUsers = 4000; // Fetch maximum 100 users
+        console.log(`Fetching Matrix Users for User ID: ${userId}, Level: ${level}`);
+        const layer0Users = await contract.getMatrixUsers(userId, level, startIndex, numUsers);
 
         for (const u of layer0Users) {
           const childId = Number(u.id);
