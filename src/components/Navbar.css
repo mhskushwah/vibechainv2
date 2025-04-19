@@ -1,0 +1,84 @@
+/* General Navbar styles */
+.navbar {
+  background-color: #1a202c; /* Set the navbar background to transparent */
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: none; /* Optional: To remove any shadow */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  color: #f39c12;
+}
+
+.nav-icon {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 20px; /* Adjust the size of the icons */
+}
+
+/* Mobile styles for Hamburger Menu */
+.menu-icon {
+  display: none; /* Initially hide the hamburger icon */
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #1a202c; /* You can change the background color of the dropdown menu here */
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.nav-links li {
+  text-align: center;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* Show hamburger icon on mobile */
+  }
+
+  .nav-links {
+    display: none; /* Hide the menu by default */
+  }
+}
