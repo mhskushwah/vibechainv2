@@ -3,7 +3,7 @@ import { BrowserProvider, Contract, ethers, formatEther } from "ethers";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../blockchain/config";
 
 const LEVEL_NAMES1 = [
-  "UNKNOWN", "PLAYER", "STAR", "HERO", "EXPERT", "WINNER", "PROVIDER", "ICON",
+  "PLAYER", "STAR", "HERO", "EXPERT", "WINNER", "PROVIDER", "ICON",
   "BOSS", "DIRECTOR", "PRECIDENT", "COMMANDER", "REGENT", "LEGEND", "APEX",
   "INFINITY", "NOVA", "BLOOM"
 ];
@@ -80,18 +80,24 @@ const RecentIncome = () => {
         const incomeData = await contract.getIncome(userId, length);
 
         const formatted = incomeData
-          .map((entry) => ({
+        .map((entry) => {
+          const incomeType = entry.incomeType ? entry.incomeType.toString() : "0";
+          const levelRaw = Number(entry.level); // original level
+          const adjustedLevel = incomeType === "1" ? levelRaw - 1 : levelRaw; // 👈 level - 1 if Referral
+      
+          return {
             from: entry.id.toString(),
-            amount: entry.amount ? formatEther(entry.amount) : "0", // Ensure amount is valid
-            incomeType: entry.incomeType ? entry.incomeType.toString() : "Unknown", // Ensure incomeType is valid
-            level: entry.level.toString(),
+            amount: entry.amount ? formatEther(entry.amount) : "0",
+            incomeType, // already string
+            level: adjustedLevel.toString(), // 👈 final level used here
             layer: entry.layer.toString(),
             isLost: entry.isLost.toString(),
-            
             timestamp: new Date(Number(entry.time) * 1000).toLocaleString(),
             time: Number(entry.time),
-          }))
-          .sort((a, b) => b.time - a.time); // ✅ Descending
+          };
+        })
+        .sort((a, b) => b.time - a.time);
+      
 
         setIncomeList(formatted);
       } catch (error) {
@@ -110,7 +116,7 @@ const RecentIncome = () => {
       case 0: return "Direct Income";
       case 1: return "Referral Income";
       case 2: return "Level Upgrade";
-      default: return "Unknown";
+      default: return "Direct Income";
     }
   };
 
@@ -360,7 +366,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
                   <td className="border px-4 py-2">{entry.from}</td>
                   <td className="border px-4 py-2">{entry.amount}</td>
                   <td className="border px-4 py-2">{getIncomeType(entry.incomeType)}</td>
-                  <td className="border px-4 py-2">{LEVEL_NAMES1[entry.level+1] || "UNKNOWN"}</td>
+                  <td className="border px-4 py-2">{LEVEL_NAMES1[entry.level] || "UNKNOWN"}</td>
                   <td className="border px-4 py-2">{entry.layer}</td>
                   <td className="border px-4 py-2">{entry.isLost}</td>
                   <td className="border px-4 py-2">{entry.timestamp}</td>
