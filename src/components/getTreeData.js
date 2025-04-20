@@ -13,17 +13,16 @@ const safeStringify = (obj, space = 2) => {
   }, space);
 };
 
-export const fetchUserTree = async (userId, depth = 2, level = 0) => {
+export const fetchUserTree = async (userId, depth = 2, level = 0, startIndex = 0, batchSize = 100) => {
   try {
-
     if (typeof userId !== "number" || isNaN(userId) || userId <= 0) {
       console.warn("Invalid userId provided to fetchUserTree:", userId);
       return null;
     }
+
     const contract = await getContract();
     const user = await contract.userInfo(userId);
 
-    // Skip if user doesn't exist or is invalid
     if (!user || Number(user.id) === 0) {
       console.warn(`User ID ${userId} not found or invalid.`);
       return null;
@@ -44,21 +43,25 @@ export const fetchUserTree = async (userId, depth = 2, level = 0) => {
     };
 
     if (depth > 0) {
-      try {
-        const startIndex = 0; // Start from index 0
-        const numUsers = 4000; // Fetch maximum 100 users
-        console.log(`Fetching Matrix Users for User ID: ${userId}, Level: ${level}`);
-        const layer0Users = await contract.getMatrixUsers(userId, level, startIndex, numUsers);
+      let hasMore = true;
+      let currentIndex = startIndex;
 
-        for (const u of layer0Users) {
+      while (hasMore) {
+        const usersBatch = await contract.getMatrixUsers(userId, level, currentIndex, batchSize);
+
+        if (usersBatch.length === 0) break;
+
+        for (const u of usersBatch) {
           const childId = Number(u.id);
-          const childNode = await fetchUserTree(childId, depth - 1, level + 1);
+          const childNode = await fetchUserTree(childId, depth - 1, level );
           if (childNode) {
             node.children.push(childNode);
           }
         }
-      } catch (err) {
-        console.warn(`Failed to fetch layer0 users for ID ${userId}:`, err.message || err);
+
+        // If less than batchSize received, we reached the end
+        hasMore = usersBatch.length === batchSize;
+        currentIndex += batchSize;
       }
     }
 
