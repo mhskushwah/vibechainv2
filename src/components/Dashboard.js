@@ -845,7 +845,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     <p className="text-lg font-semibold text-yellow-400">{item.title}</p>
                     <p className="text-2xl font-bold text-white mt-1">
   {item.isBNB
-    ? parseFloat(ethers.formatUnits(item.value || 0, "ether")).toFixed(3)
+    ? parseFloat(ethers.formatUnits(item.value || 0, "ether")).toFixed(4)
     : Number(item.value || 0).toLocaleString()}{" "}
   {item.showBNB ? "BNB" : ""}
 </p>
