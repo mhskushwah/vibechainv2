@@ -13,7 +13,7 @@ const safeStringify = (obj, space = 2) => {
   }, space);
 };
 
-export const fetchUserTree = async (userId, depth = 2, level = 0, startIndex = 0, batchSize = 100) => {
+export const fetchUserTree = async (userId, depth = 2, level = 0, startIndex = 0, batchSize = 1000) => {
   try {
     if (typeof userId !== "number" || isNaN(userId) || userId <= 0) {
       console.warn("Invalid userId provided to fetchUserTree:", userId);
@@ -45,23 +45,37 @@ export const fetchUserTree = async (userId, depth = 2, level = 0, startIndex = 0
     if (depth > 0) {
       let hasMore = true;
       let currentIndex = startIndex;
+      let childrenFetched = [];
 
       while (hasMore) {
         const usersBatch = await contract.getMatrixUsers(userId, level, currentIndex, batchSize);
-
         if (usersBatch.length === 0) break;
 
         for (const u of usersBatch) {
           const childId = Number(u.id);
           const childNode = await fetchUserTree(childId, depth - 1, level );
           if (childNode) {
-            node.children.push(childNode);
+            childrenFetched.push(childNode);
           }
         }
 
-        // If less than batchSize received, we reached the end
         hasMore = usersBatch.length === batchSize;
         currentIndex += batchSize;
+      }
+
+      // Always fill 2 child positions (binary layout)
+      const maxChildren = 2;
+      for (let i = 0; i < maxChildren; i++) {
+        if (childrenFetched[i]) {
+          node.children.push(childrenFetched[i]);
+        } else {
+          node.children.push({
+            name: "EMPTY",
+            attributes: {},
+            level: level ,
+            children: [] // ❌ Don't add children under an empty node
+          });
+        }
       }
     }
 
@@ -71,3 +85,4 @@ export const fetchUserTree = async (userId, depth = 2, level = 0, startIndex = 0
     return null;
   }
 };
+
