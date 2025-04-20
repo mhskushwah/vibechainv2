@@ -37,50 +37,6 @@ const MyTeam = () => {
               });
           }
       }, []);
-    
-    
-    
-         // Detect wallet connection change
-         useEffect(() => {
-          const handleAccountsChanged = (accounts) => {
-              if (accounts.length > 0) {
-                  setWalletAddress(accounts[0]);
-              } else {
-              }
-          };
-    
-          if (window.ethereum) {
-              window.ethereum.on("accountsChanged", handleAccountsChanged);
-          }
-    
-          return () => {
-              if (window.ethereum) {
-                  window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-              }
-          };
-      }, []);
-
-  useEffect(() => {
-      const wallet = localStorage.getItem("wallet");
-      if (wallet) {
-          setWalletAddress(wallet);
-           // Fetch details for saved wallet
-      }
-  }, []);
-
-      useEffect(() => {
-          const interval = setInterval(() => {
-              if (window.ethereum) {
-                  clearInterval(interval);
-                  const wallet = localStorage.getItem("wallet");
-                  if (wallet) {
-                      setWalletAddress(wallet);
-                      getUserData(wallet);
-                  }
-              }
-          }, 500);
-          return () => clearInterval(interval);
-      }, []);
 
 
       const getUserData = async (wallet) => {
@@ -98,18 +54,28 @@ const MyTeam = () => {
           };
       
 
-
-
-
-  // Log the userId to check if it's passed correctly
+  // 3. Auto-refresh team data
   useEffect(() => {
-    console.log("User ID passed from parent component:", userId); // Log userId
+    if (walletAddress) {
+      getUserData(walletAddress); // Fetch user data when wallet is connected
+    }
+  }, [walletAddress]);
+
+  // 4. Fetch direct team users when userId is updated
+  useEffect(() => {
     if (userId) {
       fetchDirectTeamMatrix(userId);
-    } else {
-      console.error("User ID is missing");
+
+      // Auto-refresh the team every 10 seconds
+      const interval = setInterval(() => {
+        console.log("🔄 Refreshing Direct Team Data...");
+        fetchDirectTeamMatrix(userId);
+      }, 10000); // Refresh every 10 seconds (10000 ms)
+
+      return () => clearInterval(interval); // Cleanup interval on component unmount or userId change
     }
   }, [userId]);
+
 
   const fetchDirectTeamMatrix = async (userId) => {
     try {
