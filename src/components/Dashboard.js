@@ -319,6 +319,7 @@ const Dashboard = () => {
           const tx = await contract.register(refId, userAddress, { value: valueInWei });
           await tx.wait();
           alert("✅ Registration Successful!");
+          await fetchUserDetails(userAddress);
           setIsRegistered(true);
           setShowRegisterPopup(false);
       } catch (err) {
@@ -413,6 +414,8 @@ const Dashboard = () => {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+        const wallet = await signer.getAddress();
+
 
         // 💰 Calculate total amount + admin charges
         const totalAmount = selectedLevels.reduce((acc, idx) => acc + parseFloat(LEVELS[idx]), 0);
@@ -447,6 +450,8 @@ const Dashboard = () => {
             value: totalBNB,
         });
         await tx.wait();
+
+        await fetchUserDetails(wallet);
 
         alert("✅ Upgrade Successful!");
         setSelectedLevels([]);
@@ -855,7 +860,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
         </div>
     ))}
 </div>
-
 
 
         <div className="flex justify-center px-4 md:p-0 mt-8">
