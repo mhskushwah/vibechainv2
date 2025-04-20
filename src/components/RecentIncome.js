@@ -14,34 +14,56 @@ const RecentIncome = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const [userId, setUserId] = useState(null);
 
-  // Connect wallet
-  useEffect(() => {
-    const connectWallet = async () => {
-      if (window.ethereum) {
-        try {
-          const accounts = await window.ethereum.request({ method: "eth_accounts" });
-          if (accounts.length > 0) {
-            setWalletAddress(accounts[0]);
-            localStorage.setItem("wallet", accounts[0]); // ✅ Save for reloads
+
+    useEffect(() => {
+      async function connectWallet() {
+          if (window.ethereum) {
+              try {
+                  const accounts = await window.ethereum.request({ method: "eth_accounts" });
+                  if (accounts.length > 0) {
+                      setWalletAddress(accounts[0]); // Update wallet address
+                  }
+              } catch (error) {
+                  console.error("Wallet Connection Error:", error);
+              }
           }
-        } catch (error) {
-          console.error("Wallet Connection Error:", error);
-        }
       }
-    };
 
-    connectWallet();
+      connectWallet();
 
-    // Listen for wallet change
-    window.ethereum?.on("accountsChanged", (accounts) => {
-      if (accounts.length > 0) {
-        setWalletAddress(accounts[0]);
-        localStorage.setItem("wallet", accounts[0]);
-      } else {
-        setWalletAddress(null);
-        localStorage.removeItem("wallet");
+      // **Wallet change event listener**
+      if (window.ethereum) {
+          window.ethereum.on("accountsChanged", (accounts) => {
+              if (accounts.length > 0) {
+                  setWalletAddress(accounts[0]); // Update state when wallet changes
+              } else {
+                  setWalletAddress(null);
+              }
+          });
       }
-    });
+  }, []);
+
+
+
+     // Detect wallet connection change
+     useEffect(() => {
+      const handleAccountsChanged = (accounts) => {
+          if (accounts.length > 0) {
+              setWalletAddress(accounts[0]);
+          } else {
+              setWalletAddress("");
+          }
+      };
+
+      if (window.ethereum) {
+          window.ethereum.on("accountsChanged", handleAccountsChanged);
+      }
+
+      return () => {
+          if (window.ethereum) {
+              window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+          }
+      };
   }, []);
 
   // Load wallet from localStorage on reload

@@ -14,12 +14,60 @@ function CommunityInfo() {
   const [matrixUsers, setMatrixUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
-    const wallet = localStorage.getItem("wallet");
-    if (wallet) {
-      setWalletAddress(wallet);
+    async function connectWallet() {
+        if (window.ethereum) {
+            try {
+                const accounts = await window.ethereum.request({ method: "eth_accounts" });
+                if (accounts.length > 0) {
+                    setWalletAddress(accounts[0]); // Update wallet address
+                }
+            } catch (error) {
+                console.error("Wallet Connection Error:", error);
+            }
+        }
     }
-  }, []);
+
+    connectWallet();
+
+    // **Wallet change event listener**
+    if (window.ethereum) {
+        window.ethereum.on("accountsChanged", (accounts) => {
+            if (accounts.length > 0) {
+                setWalletAddress(accounts[0]); // Update state when wallet changes
+            } else {
+                setWalletAddress(null);
+            }
+        });
+    }
+}, []);
+
+
+
+   // Detect wallet connection change
+   useEffect(() => {
+    const handleAccountsChanged = (accounts) => {
+        if (accounts.length > 0) {
+            setWalletAddress(accounts[0]);
+        } else {
+            setWalletAddress("");
+        }
+    };
+
+    if (window.ethereum) {
+        window.ethereum.on("accountsChanged", handleAccountsChanged);
+    }
+
+    return () => {
+        if (window.ethereum) {
+            window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
+        }
+    };
+}, []);
+
+
+
 
   useEffect(() => {
     if (walletAddress) {
