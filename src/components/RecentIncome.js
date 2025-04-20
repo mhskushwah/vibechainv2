@@ -86,6 +86,8 @@ const RecentIncome = () => {
             incomeType: entry.incomeType ? entry.incomeType.toString() : "Unknown", // Ensure incomeType is valid
             level: entry.level.toString(),
             layer: entry.layer.toString(),
+            isLost: entry.isLost.toString(),
+            
             timestamp: new Date(Number(entry.time) * 1000).toLocaleString(),
             time: Number(entry.time),
           }))
@@ -105,9 +107,9 @@ const RecentIncome = () => {
   // Income type label
   const getIncomeType = (type) => {
     switch (Number(type)) {
-      case 0: return "Referral";
-      case 1: return "Direct Referral";
-      case 2: return "Upgrade";
+      case 0: return "Direct Income";
+      case 1: return "Referral Income";
+      case 2: return "Level Upgrade";
       default: return "Unknown";
     }
   };
@@ -340,6 +342,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
               <th className="border px-4 py-2 text-left">Income Type</th>
               <th className="border px-4 py-2 text-left">Level</th>
               <th className="border px-4 py-2 text-left">Layer</th>
+              <th className="border px-4 py-2 text-left">Lost</th>
               <th className="border px-4 py-2 text-left">Timestamp</th>
             </tr>
           </thead>
@@ -357,8 +360,9 @@ Learn how to configure a non-root public URL by running `npm run build`.
                   <td className="border px-4 py-2">{entry.from}</td>
                   <td className="border px-4 py-2">{entry.amount}</td>
                   <td className="border px-4 py-2">{getIncomeType(entry.incomeType)}</td>
-                  <td className="border px-4 py-2">{LEVEL_NAMES1[entry.level] || "UNKNOWN"}</td>
+                  <td className="border px-4 py-2">{LEVEL_NAMES1[entry.level+1] || "UNKNOWN"}</td>
                   <td className="border px-4 py-2">{entry.layer}</td>
+                  <td className="border px-4 py-2">{entry.isLost}</td>
                   <td className="border px-4 py-2">{entry.timestamp}</td>
                 </tr>
                 ))}
