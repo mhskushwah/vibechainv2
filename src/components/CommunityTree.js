@@ -153,6 +153,9 @@ const TreeNode = ({ node, selectedNode, setSelectedNode, userId, setInputId, han
 };
 
 const CommunityTree = () => {
+  const [currentTree, setCurrentTree] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [forwardStack, setForwardStack] = useState([]);
   const [treeData, setTreeData] = useState(null);
   const [userId, setUserId] = useState();
   const [inputId, setInputId] = useState("");
@@ -195,12 +198,46 @@ const CommunityTree = () => {
     try {
       setLoading(true);
       const data = await fetchUserTree(parsedId);
+
       setTreeData(data);
       setSelectedNode(data);
+
+      if (data) {
+        setHistory(prev => [...prev, currentTree].filter(Boolean));
+        setForwardStack([]);
+        setCurrentTree(data);
+        setSelectedNode(null);
+      }
     } catch (error) {
       console.error("Error fetching tree:", error);
     } finally {
       setLoading(false);
+    }
+
+   
+
+  };
+
+
+  const goBack = () => {
+    if (history.length > 0) {
+      const prevTree = history[history.length - 1];
+      setHistory(history.slice(0, -1));
+      setForwardStack([currentTree, ...forwardStack]);
+      setCurrentTree(prevTree);
+      setTreeData(prevTree); // ✅ Important
+      setSelectedNode(null);
+    }
+  };
+  
+  const goForward = () => {
+    if (forwardStack.length > 0) {
+      const nextTree = forwardStack[0];
+      setForwardStack(forwardStack.slice(1));
+      setHistory([...history, currentTree]);
+      setCurrentTree(nextTree);
+      setTreeData(nextTree); // ✅ Important
+      setSelectedNode(null);
     }
   };
 
@@ -281,6 +318,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
               >
                 Search
               </button>
+
             </div>
           </div>
         </div>
@@ -288,6 +326,27 @@ Learn how to configure a non-root public URL by running `npm run build`.
 
       <div className="w-full overflow-x-auto min-h-screen p-4">
   <h1 className="text-lime-500 font-bold text-2xl mb-4 text-center">Community Tree</h1>
+  <button
+    onClick={goBack}
+    disabled={history.length === 0}
+    className={`px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 
+      ${history.length === 0
+        ? 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-60'
+        : 'bg-gradient-to-r from-yellow-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 shadow-lg'}`}
+  >
+    ⬅ Back
+  </button>
+................
+  <button
+    onClick={goForward}
+    disabled={forwardStack.length === 0}
+    className={`px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 
+      ${forwardStack.length === 0
+        ? 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-60'
+        : 'bg-gradient-to-r from-yellow-500 to-green-700 hover:from-green-600 hover:to-green-800 shadow-lg'}`}
+  >
+    Forward ➡
+  </button>
 
   <div className="min-w-[1000px] flex justify-center">
     {loading ? (
