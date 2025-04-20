@@ -289,6 +289,7 @@ const Dashboard = () => {
           const provider = new ethers.BrowserProvider(window.ethereum);
           const signer = await provider.getSigner();
           const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+          const wallet = await signer.getAddress();
 
           const userAddress = await signer.getAddress();
           const balance = await provider.getBalance(userAddress);
@@ -319,7 +320,7 @@ const Dashboard = () => {
           const tx = await contract.register(refId, userAddress, { value: valueInWei });
           await tx.wait();
           alert("✅ Registration Successful!");
-          await fetchUserDetails(userAddress);
+          await fetchUserDetails(wallet);
           setIsRegistered(true);
           setShowRegisterPopup(false);
       } catch (err) {
