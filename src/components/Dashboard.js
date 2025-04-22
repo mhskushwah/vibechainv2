@@ -538,8 +538,31 @@ const finalAmount = totalAmount + totalAdminCharge;
         <br></br>
         <br></br>
         <br></br>
-       
+        {/* Registration Popup */}
+        {showRegisterPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                    <div className="bg-gray-900 p-6 rounded-xl shadow-lg w-[90%] max-w-sm text-white">
+                        <h2 className="text-xl font-semibold text-center text-yellow-400">Registration</h2>
+                        <p className="text-gray-300 text-sm text-center mb-2">You need to register with 0.0044 BNB + Gas Fee</p>
+                        <p className="text-center mb-4">Referrer ID: {ref}</p>
+                        <button
+                            onClick={handleRegister}
+                            disabled={loading}
+                            className="bg-green-500 text-white w-full py-2 rounded hover:bg-green-600 mb-2"
+                        >
+                            {loading ? "Registering..." : "Register Now"}
+                        </button>
+                        <button
+                            onClick={() => setShowRegisterPopup(false)}
+                            className="bg-red-500 text-white w-full py-2 rounded hover:bg-red-600"
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
         {userId && <DayIncomeList userId={userId} />}
+        
 
         <div className="flex flex-col items-center px-4 md:px-8 lg:px-16 py-6 bg-black min-h-screen text-white">
             {/* Wallet Section */}
@@ -582,29 +605,7 @@ const finalAmount = totalAmount + totalAdminCharge;
 </div>
 
    
-            {/* Registration Popup */}
-            {showRegisterPopup && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-                    <div className="bg-gray-900 p-6 rounded-xl shadow-lg w-[90%] max-w-sm text-white">
-                        <h2 className="text-xl font-semibold text-center text-yellow-400">Registration</h2>
-                        <p className="text-gray-300 text-sm text-center mb-2">You need to register with 0.0044 BNB + Gas Fee</p>
-                        <p className="text-center mb-4">Referrer ID: {ref}</p>
-                        <button
-                            onClick={handleRegister}
-                            disabled={loading}
-                            className="bg-green-500 text-white w-full py-2 rounded hover:bg-green-600 mb-2"
-                        >
-                            {loading ? "Registering..." : "Register Now"}
-                        </button>
-                        <button
-                            onClick={() => setShowRegisterPopup(false)}
-                            className="bg-red-500 text-white w-full py-2 rounded hover:bg-red-600"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            )}
+           
         </div>
 
 <div className="p-4 md:p-8 flex flex-col items-center bg-black min-h-screen text-white">
