@@ -4,6 +4,8 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../blockchain/config";
 import { CheckCircle, ArrowUpCircle, Lock} from "lucide-react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
+import DayIncomeList from "../components/DayIncomeList";
+
 
 
 /* global BigInt */
@@ -37,7 +39,7 @@ const Dashboard = () => {
     const [totalMatrixTeam, setTotalMatrixTeam] = useState(0);
     const [upgradingIncome, setupgradingIncome] = useState(0);
     const [referralIncome, setReferralIncome] = useState(0);
-    const [levelIncome, setLevelIncome] = useState(0);
+    const [directReferralIncome, setdirectReferralIncome] = useState(0);
     const [income, setIncome] = useState(Array(17).fill("0")); // 17 elements array
     const [ref, setRef] = useState(0); // Referral ID from URL
     const [copied, setCopied] = useState(false); // ✅ Copy Notification
@@ -156,9 +158,9 @@ const Dashboard = () => {
                 setTotalIncome(userData1.totalIncome);
                 setTotalDeposit(userData.totalDeposit);
                 setTotalMatrixTeam(userData.totalMatrixTeam);
-                setupgradingIncome(userData1.upgradingIncome);
+                setupgradingIncome(userData1.upgradingIncome   );
                 setReferralIncome(userData1.referralIncome);
-                setLevelIncome(userData1.levelIncome);
+                setdirectReferralIncome(userData1.directReferralIncome);
                 setlostIncome(userData1.lostIncome);
 
                 const incomeArray = await contract.getLevelIncome(userId);
@@ -662,12 +664,9 @@ Learn how to configure a non-root public URL by running `npm run build`.
        
 
 
-      
+        {userId && <DayIncomeList userId={userId} />}
 
 
-
-
-           
        
         <div className="flex flex-col items-center px-4 md:px-8 lg:px-16 py-6 bg-black min-h-screen text-white">
             {/* Wallet Section */}
@@ -839,9 +838,9 @@ Learn how to configure a non-root public URL by running `npm run build`.
         { title: "Total Deposit", value: totalDeposit, icon: "bnb.png", showBNB: true, isBNB: true },
         { title: "Direct Referrals", value: directTeam, icon: "leader.png", showBNB: false, isBNB: false },
         { title: "My Community Size", value: totalMatrixTeam, icon: "matrix.png", showBNB: false, isBNB: false },
-        { title: "Referral Income (20%) ", value: upgradingIncome, icon: "bnb.png", showBNB: true, isBNB: true },
+        { title: "Referral Income (20%) ", value: directReferralIncome, icon: "bnb.png", showBNB: true, isBNB: true },
         { title: "Direct Income (100%)", value: referralIncome, icon: "bnb.png", showBNB: true, isBNB: true },
-        { title: "Level Upgrade Income", value: levelIncome, icon: "bnb.png", showBNB: true, isBNB: true },
+        { title: "Level Upgrade Income", value: upgradingIncome, icon: "bnb.png", showBNB: true, isBNB: true },
         { title: "Lost Income", value: lostIncome, icon: "bnb.png", showBNB: true, isBNB: true },
 
     ].map((item, index) => (
