@@ -238,25 +238,11 @@ const MyTeam = () => {
         ".anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}"
     }}
   />
-  <link rel="icon" href="https://getrise.pro/favicon.ico" />
+  <link rel="icon" href="assets/RainBNB_files/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="RainBNB, the next generation of RideBNB." />
-  <link rel="apple-touch-icon" href="https://getrise.pro/logo192.png" />
-  {/*
-manifest.json provides metadata used when your web app is installed on a
-user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    */}
-  <link rel="manifest" href="https://getrise.pro/manifest.json" />
-  {/*
-Notice the use of  in the tags above.
-It will be replaced with the URL of the `public` folder during the build.
-Only files inside the `public` folder can be referenced from the HTML.
 
-Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
-work correctly both with client-side routing and a non-root public URL.
-Learn how to configure a non-root public URL by running `npm run build`.
-    */}
   <title>VIBE CHAIN</title>
   <style
     dangerouslySetInnerHTML={{
@@ -327,8 +313,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
         <div className="flex justify-center px-4 md:p-0 mt-6">
           <div className="md:w-3/4 w-full">
            
-            
-          
           </div>
         </div>
     

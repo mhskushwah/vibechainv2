@@ -334,8 +334,6 @@ const Dashboard = () => {
   };
 
 
-  
-  
     const toggleLevel = (index) => {
       console.log("Clicked index:", index);
       console.log("Selected Levels Before:", selectedLevels);
@@ -498,130 +496,11 @@ const finalAmount = totalAmount + totalAdminCharge;
     <>
   {/* saved from url=(0029)https://getrise.pro/dashboard */}
   <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
-  <style
-    data-rc-order="prepend"
-    rc-util-key="@ant-design-icons"
-    dangerouslySetInnerHTML={{
-      __html:
-        "\n.anticon {\n  display: inline-flex;\n  align-items: center;\n  color: inherit;\n  font-style: normal;\n  line-height: 0;\n  text-align: center;\n  text-transform: none;\n  vertical-align: -0.125em;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n.anticon > * {\n  line-height: 1;\n}\n\n.anticon svg {\n  display: inline-block;\n}\n\n.anticon::before {\n  display: none;\n}\n\n.anticon .anticon-icon {\n  display: block;\n}\n\n.anticon[tabindex] {\n  cursor: pointer;\n}\n\n.anticon-spin::before,\n.anticon-spin {\n  display: inline-block;\n  -webkit-animation: loadingCircle 1s infinite linear;\n  animation: loadingCircle 1s infinite linear;\n}\n\n@-webkit-keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n\n@keyframes loadingCircle {\n  100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n  }\n}\n"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="1ueedyr"
-    data-token-hash="r5zvrw"
-    data-cache-path="r5zvrw|Shared|ant"
-    dangerouslySetInnerHTML={{
-      __html:
-        ":where(.css-dev-only-do-not-override-1fumvat) a{color:#1677ff;text-decoration:none;background-color:transparent;outline:none;cursor:pointer;transition:color 0.3s;-webkit-text-decoration-skip:objects;}:where(.css-dev-only-do-not-override-1fumvat) a:hover{color:#69b1ff;}:where(.css-dev-only-do-not-override-1fumvat) a:active{color:#0958d9;}:where(.css-dev-only-do-not-override-1fumvat) a:active,:where(.css-dev-only-do-not-override-1fumvat) a:hover{text-decoration:none;outline:0;}:where(.css-dev-only-do-not-override-1fumvat) a:focus{text-decoration:none;outline:0;}:where(.css-dev-only-do-not-override-1fumvat) a[disabled]{color:rgba(0, 0, 0, 0.25);cursor:not-allowed;}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="1brlkoc"
-    data-token-hash="r5zvrw"
-    data-cache-path="r5zvrw|Modal-Modal|ant-modal|anticon"
-    dangerouslySetInnerHTML={{
-      __html:
-        ':where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"]{font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif,\'Apple Color Emoji\',\'Segoe UI Emoji\',\'Segoe UI Symbol\',\'Noto Color Emoji\';font-size:14px;box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"]::after{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class^="ant-modal"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class^="ant-modal"],:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class*=" ant-modal"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class*=" ant-modal"]{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class^="ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class^="ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class*=" ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class*=" ant-modal"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class^="ant-modal"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class^="ant-modal"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-modal"] [class*=" ant-modal"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-modal"] [class*=" ant-modal"]::after{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-wrap-rtl{direction:rtl;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-centered{text-align:center;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-centered::before{display:inline-block;width:0;height:100%;vertical-align:middle;content:"";}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-centered .ant-modal{top:0;display:inline-block;padding-bottom:0;text-align:start;vertical-align:middle;}@media (max-width: 767px){:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal{max-width:calc(100vw - 16px);margin:8px auto;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-centered .ant-modal{flex:1;}}:where(.css-dev-only-do-not-override-1fumvat).ant-modal{box-sizing:border-box;margin:0 auto;padding:0;color:rgba(0, 0, 0, 0.88);font-size:14px;line-height:1.5714285714285714;list-style:none;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif,\'Apple Color Emoji\',\'Segoe UI Emoji\',\'Segoe UI Symbol\',\'Noto Color Emoji\';pointer-events:none;position:relative;top:100px;width:auto;max-width:calc(100vw - 32px);padding-bottom:24px;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-title{margin:0;color:rgba(0, 0, 0, 0.88);font-weight:600;font-size:16px;line-height:1.5;word-wrap:break-word;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-content{position:relative;background-color:#ffffff;background-clip:padding-box;border:0;border-radius:8px;box-shadow:0 6px 16px 0 rgba(0, 0, 0, 0.08),0 3px 6px -4px rgba(0, 0, 0, 0.12),0 9px 28px 8px rgba(0, 0, 0, 0.05);pointer-events:auto;padding:20px 24px;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-close{position:absolute;top:12px;inset-inline-end:12px;z-index:1010;padding:0;color:rgba(0, 0, 0, 0.45);font-weight:600;line-height:1;text-decoration:none;background:transparent;border-radius:4px;width:32px;height:32px;border:0;outline:0;cursor:pointer;transition:color 0.2s,background-color 0.2s;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-close-x{display:flex;font-size:16px;font-style:normal;line-height:32px;justify-content:center;text-transform:none;text-rendering:auto;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-close:hover{color:rgba(0, 0, 0, 0.88);background-color:rgba(0, 0, 0, 0.06);text-decoration:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-close:active{background-color:rgba(0, 0, 0, 0.15);}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-close:focus-visible{outline:4px solid #91caff;outline-offset:1px;transition:outline-offset 0s,outline 0s;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-header{color:rgba(0, 0, 0, 0.88);background:#ffffff;border-radius:8px 8px 0 0;margin-bottom:8px;padding:0;border-bottom:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-body{font-size:14px;line-height:1.5714285714285714;word-wrap:break-word;padding:0;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-body .ant-modal-body-skeleton{width:100%;height:100%;display:flex;justify-content:center;align-items:center;margin:16px auto;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-footer{text-align:end;background:transparent;margin-top:12px;padding:0;border-top:none;border-radius:0;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-footer >.ant-btn+.ant-btn{margin-inline-start:8px;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal .ant-modal-open{overflow:hidden;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-pure-panel{top:auto;padding:0;display:flex;flex-direction:column;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-pure-panel .ant-modal-content,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-pure-panel .ant-modal-body,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-pure-panel .ant-modal-confirm-body-wrapper{display:flex;flex-direction:column;flex:auto;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-pure-panel .ant-modal-confirm-body{margin-bottom:auto;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-wrap-rtl{direction:rtl;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-wrap-rtl .ant-modal-confirm-body{direction:rtl;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal.ant-zoom-enter,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal.ant-zoom-appear{transform:none;opacity:0;animation-duration:0.3s;user-select:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal.ant-zoom-leave .ant-modal-content{pointer-events:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-mask{position:fixed;inset:0;z-index:1000;height:100%;background-color:rgba(0, 0, 0, 0.45);pointer-events:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-mask .ant-modal-hidden{display:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-modal-wrap{position:fixed;inset:0;z-index:1000;overflow:auto;outline:0;-webkit-overflow-scrolling:touch;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-enter,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-appear{animation-duration:0.2s;animation-fill-mode:both;animation-play-state:paused;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-leave{animation-duration:0.2s;animation-fill-mode:both;animation-play-state:paused;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-enter.ant-fade-enter-active,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-appear.ant-fade-appear-active{animation-name:css-dev-only-do-not-override-1fumvat-antFadeIn;animation-play-state:running;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-leave.ant-fade-leave-active{animation-name:css-dev-only-do-not-override-1fumvat-antFadeOut;animation-play-state:running;pointer-events:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-enter,:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-appear{opacity:0;animation-timing-function:linear;}:where(.css-dev-only-do-not-override-1fumvat).ant-modal-root .ant-fade-leave{animation-timing-function:linear;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-enter,:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-appear{animation-duration:0.2s;animation-fill-mode:both;animation-play-state:paused;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-leave{animation-duration:0.2s;animation-fill-mode:both;animation-play-state:paused;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-enter.ant-zoom-enter-active,:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-appear.ant-zoom-appear-active{animation-name:css-dev-only-do-not-override-1fumvat-antZoomIn;animation-play-state:running;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-leave.ant-zoom-leave-active{animation-name:css-dev-only-do-not-override-1fumvat-antZoomOut;animation-play-state:running;pointer-events:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-enter,:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-appear{transform:scale(0);opacity:0;animation-timing-function:cubic-bezier(0.08, 0.82, 0.17, 1);}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-enter-prepare,:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-appear-prepare{transform:none;}:where(.css-dev-only-do-not-override-1fumvat).ant-zoom-leave{animation-timing-function:cubic-bezier(0.78, 0.14, 0.15, 0.86);}'
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-antFadeIn"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-antFadeIn{0%{opacity:0;}100%{opacity:1;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-antFadeOut"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-antFadeOut{0%{opacity:1;}100%{opacity:0;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-antZoomIn"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-antZoomIn{0%{transform:scale(0.2);opacity:0;}100%{transform:scale(1);opacity:1;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-antZoomOut"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-antZoomOut{0%{transform:scale(1);}100%{transform:scale(0.2);opacity:0;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="141yxjc"
-    data-token-hash="r5zvrw"
-    data-cache-path="r5zvrw|Message-Message|ant-message|anticon"
-    dangerouslySetInnerHTML={{
-      __html:
-        ':where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"]{font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif,\'Apple Color Emoji\',\'Segoe UI Emoji\',\'Segoe UI Symbol\',\'Noto Color Emoji\';font-size:14px;box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"]::after{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class^="ant-message"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class^="ant-message"],:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class*=" ant-message"],:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class*=" ant-message"]{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class^="ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class^="ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class*=" ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class*=" ant-message"]::before,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class^="ant-message"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class^="ant-message"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class^="ant-message"] [class*=" ant-message"]::after,:where(.css-dev-only-do-not-override-1fumvat)[class*=" ant-message"] [class*=" ant-message"]::after{box-sizing:border-box;}:where(.css-dev-only-do-not-override-1fumvat).ant-message{box-sizing:border-box;margin:0;padding:0;color:rgba(0, 0, 0, 0.88);font-size:14px;line-height:1.5714285714285714;list-style:none;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif,\'Apple Color Emoji\',\'Segoe UI Emoji\',\'Segoe UI Symbol\',\'Noto Color Emoji\';position:fixed;top:8px;width:100%;pointer-events:none;z-index:2010;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up{animation-fill-mode:forwards;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-appear,:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-enter{animation-name:css-dev-only-do-not-override-1fumvat-MessageMoveIn;animation-duration:0.3s;animation-play-state:paused;animation-timing-function:cubic-bezier(0.78, 0.14, 0.15, 0.86);}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-appear.ant-message-move-up-appear-active,:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-enter.ant-message-move-up-enter-active{animation-play-state:running;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-leave{animation-name:css-dev-only-do-not-override-1fumvat-MessageMoveOut;animation-duration:0.3s;animation-play-state:paused;animation-timing-function:cubic-bezier(0.78, 0.14, 0.15, 0.86);}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-move-up-leave.ant-message-move-up-leave-active{animation-play-state:running;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-rtl{direction:rtl;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-rtl span{direction:rtl;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper{padding:8px;text-align:center;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-custom-content{display:flex;align-items:center;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-custom-content>.anticon{margin-inline-end:8px;font-size:16px;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-notice-content{display:inline-block;padding:9px 12px;background:#ffffff;border-radius:8px;box-shadow:0 6px 16px 0 rgba(0, 0, 0, 0.08),0 3px 6px -4px rgba(0, 0, 0, 0.12),0 9px 28px 8px rgba(0, 0, 0, 0.05);pointer-events:all;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-success>.anticon{color:#52c41a;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-error>.anticon{color:#ff4d4f;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-warning>.anticon{color:#faad14;}:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-info>.anticon,:where(.css-dev-only-do-not-override-1fumvat).ant-message .ant-message-notice-wrapper .ant-message-loading>.anticon{color:#1677ff;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel{padding:0;text-align:start;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-custom-content{display:flex;align-items:center;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-custom-content>.anticon{margin-inline-end:8px;font-size:16px;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-notice-content{display:inline-block;padding:9px 12px;background:#ffffff;border-radius:8px;box-shadow:0 6px 16px 0 rgba(0, 0, 0, 0.08),0 3px 6px -4px rgba(0, 0, 0, 0.12),0 9px 28px 8px rgba(0, 0, 0, 0.05);pointer-events:all;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-success>.anticon{color:#52c41a;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-error>.anticon{color:#ff4d4f;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-warning>.anticon{color:#faad14;}:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-info>.anticon,:where(.css-dev-only-do-not-override-1fumvat).ant-message-notice-pure-panel .ant-message-loading>.anticon{color:#1677ff;}'
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-MessageMoveIn"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-MessageMoveIn{0%{padding:0;transform:translateY(-100%);opacity:0;}100%{padding:8px;transform:translateY(0);opacity:1;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-rc-priority={-999}
-    data-css-hash="_effect-css-dev-only-do-not-override-1fumvat-MessageMoveOut"
-    dangerouslySetInnerHTML={{
-      __html:
-        "@keyframes css-dev-only-do-not-override-1fumvat-MessageMoveOut{0%{max-height:150px;padding:8px;opacity:1;}100%{max-height:0;padding:0;opacity:0;}}"
-    }}
-  />
-  <style
-    data-rc-order="prependQueue"
-    data-css-hash="1bpjxgl"
-    data-token-hash="r5zvrw"
-    data-cache-path="r5zvrw|ant-design-icons|anticon"
-    dangerouslySetInnerHTML={{
-      __html:
-        ".anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}"
-    }}
-  />
-  <link rel="icon" href="https://getr1ise.pro/favicon.ico" />
+
+  <link rel="icon" href="assets/RainBNB_files/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="RainBNB, the next generation of RideBNB." />
-  <link rel="apple-touch-icon" href="https://getrise.pro/logo192.png" />
-  {/*
-manifest.json provides metadata used when your web app is installed on a
-user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    */}
-  <link rel="manifest" href="https://getrise.pro/manifest.json" />
-  {/*
-Notice the use of  in the tags above.
-It will be replaced with the URL of the `public` folder during the build.
-Only files inside the `public` folder can be referenced from the HTML.
-
-Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
-work correctly both with client-side routing and a non-root public URL.
-Learn how to configure a non-root public URL by running `npm run build`.
-    */}
   <title>VIBE CHAIN</title>
   <style
     dangerouslySetInnerHTML={{
@@ -642,7 +521,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
         '@charset "UTF-8";\n@font-face {\n  font-family: \'Notification\';\n  src: url(https://getrise.pro/static/media/notification.3657084dc0419605a91c.eot);\n  src: url(https://getrise.pro/static/media/notification.3657084dc0419605a91c.eot?#iefixs3g3t9) format("embedded-opentype"), url(https://getrise.pro/static/media/notification.c392cd33d9d9de730f9d.woff) format("woff"), url(https://getrise.pro/static/media/notification.c5d9251ea82e42f75381.ttf) format("truetype"), url(https://getrise.pro/static/media/notification.5d0158671dd860c714c4.svg#notification) format("svg");\n  font-weight: normal;\n  font-style: normal;\n}\n\n.notification-container {\n  box-sizing: border-box;\n  position: fixed;\n  top: 0;\n  right: 0;\n  z-index: 999999;\n  width: 320px;\n  padding: 0px 15px;\n  max-height: calc(100% - 30px);\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.notification {\n  box-sizing: border-box;\n  padding: 15px 15px 15px 58px;\n  border-radius: 2px;\n  color: #fff;\n  background-color: #ccc;\n  box-shadow: 0 0 12px #999;\n  cursor: pointer;\n  font-size: 1em;\n  line-height: 1.2em;\n  position: relative;\n  opacity: 0.9;\n  margin-top: 15px;\n}\n\n.notification .title {\n  font-size: 1em;\n  line-height: 1.2em;\n  font-weight: bold;\n  margin: 0 0 5px 0;\n}\n\n.notification:hover, .notification:focus {\n  opacity: 1;\n}\n\n.notification-enter {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n}\n\n.notification-enter.notification-enter-active {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification-exit {\n  visibility: visible;\n  transform: translate3d(0, 0, 0);\n}\n\n.notification-exit.notification-exit-active {\n  visibility: hidden;\n  transform: translate3d(100%, 0, 0);\n  transition: all 0.4s;\n}\n\n.notification:before {\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  margin-top: -14px;\n  display: block;\n  font-family: \'Notification\';\n  width: 28px;\n  height: 28px;\n  font-size: 28px;\n  text-align: center;\n  line-height: 28px;\n}\n\n.notification-info {\n  background-color: #2f96b4;\n}\n\n.notification-info:before {\n  content: "";\n}\n\n.notification-success {\n  background-color: #51a351;\n}\n\n.notification-success:before {\n  content: "";\n}\n\n.notification-warning {\n  background-color: #f89406;\n}\n\n.notification-warning:before {\n  content: "";\n}\n\n.notification-error {\n  background-color: #bd362f;\n}\n\n.notification-error:before {\n  content: "";\n}\n\n'
     }}
   />
-  <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
  
     <div className="App">
@@ -656,18 +534,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
       />
     
       <div className="pb-4 text-black dark:text-white transition-colors duration-1000 min-h-screen relative">
-        
-      
+
         <br></br>
         <br></br>
         <br></br>
        
-
-
         {userId && <DayIncomeList userId={userId} />}
 
-
-       
         <div className="flex flex-col items-center px-4 md:px-8 lg:px-16 py-6 bg-black min-h-screen text-white">
             {/* Wallet Section */}
             <div className="mt-6 w-full max-w-2xl bg-gray-900 text-yellow-300 p-6 rounded-lg shadow-lg">
@@ -693,7 +566,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
             </div>
             
        
-            <div className="flex flex-col items-center mt-6 w-full max-w-lg bg-gray-900 p-6 rounded-lg shadow-lg">
+    <div className="flex flex-col items-center mt-6 w-full max-w-lg bg-gray-900 p-6 rounded-lg shadow-lg">
     <h1 className="text-lg font-bold mb-4 text-yellow-400">Referral Link</h1>
     <div className="flex items-center bg-gray-800 p-3 rounded-md w-full">
     <span 
@@ -708,8 +581,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
     </div>
 </div>
 
-
-            
+   
             {/* Registration Popup */}
             {showRegisterPopup && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -734,9 +606,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
                 </div>
             )}
         </div>
-
-
-
 
 <div className="p-4 md:p-8 flex flex-col items-center bg-black min-h-screen text-white">
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-yellow-400 mb-6 tracking-widest text-center">
@@ -831,7 +700,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
 
 </div>
 
-
 <div className="flex flex-wrap justify-center gap-6 mt-6 px-4">
     {[
         { title: "Total Income", value: totalIncome, icon: "bnb.png", showBNB: true, isBNB: true },
@@ -860,7 +728,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
         </div>
     ))}
 </div>
-
 
         <div className="flex justify-center px-4 md:p-0 mt-8">
           <div className="md:w-3/4 w-full">
@@ -985,12 +852,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
         </div>
        
 
-
-
-
-
-
-        
         <div className="flex justify-center px-4 md:p-0 mt-10 mb-4">
           
           <div className="md:w-3/4 w-full">
