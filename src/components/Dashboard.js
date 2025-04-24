@@ -423,8 +423,10 @@ const Dashboard = () => {
         const totalAdminCharge = selectedLevels.reduce((acc, idx) => {
             return acc + (parseFloat(LEVELS[idx]) * PERCENTS[idx]) / 100;
         }, 0);
-        const finalAmount = parseFloat((totalAmount + totalAdminCharge).toFixed(7));
-        const totalBNB = ethers.parseEther(finalAmount.toString());
+        
+        // 🔁 Use fixed precision, avoid float conversion errors
+        const finalAmount = (totalAmount + totalAdminCharge).toFixed(18);
+        const totalBNB = ethers.parseUnits(finalAmount, 18);
 
         // 💼 Wallet balance check
         const walletAddress = await signer.getAddress();
