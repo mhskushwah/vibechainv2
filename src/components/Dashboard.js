@@ -418,15 +418,15 @@ const Dashboard = () => {
         const wallet = await signer.getAddress();
 
 
-        // 💰 Calculate total amount + admin charges
-        const totalAmount = selectedLevels.reduce((acc, idx) => acc + parseFloat(LEVELS[idx]), 0);
-        const totalAdminCharge = selectedLevels.reduce((acc, idx) => {
-            return acc + (parseFloat(LEVELS[idx]) * PERCENTS[idx]) / 100;
-        }, 0);
-        
-        // 🔁 Use fixed precision, avoid float conversion errors
-        const finalAmount = (totalAmount + totalAdminCharge).toFixed(18);
-        const totalBNB = ethers.parseUnits(finalAmount, 18);
+      // 💰 Calculate total amount + admin charges (as float)
+const totalAmount = selectedLevels.reduce((acc, idx) => acc + parseFloat(LEVELS[idx]), 0);
+const totalAdminCharge = selectedLevels.reduce((acc, idx) => {
+    return acc + (parseFloat(LEVELS[idx]) * PERCENTS[idx]) / 100;
+}, 0);
+
+// ✅ Fix: Use string formatting with exact 5 or 6 decimals
+const finalAmountStr = (totalAmount + totalAdminCharge).toFixed(6); // ← control decimals manually
+const totalBNB = ethers.parseUnits(finalAmountStr, 18); // ← safe conversion to BNB
 
         // 💼 Wallet balance check
         const walletAddress = await signer.getAddress();
