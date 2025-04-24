@@ -425,7 +425,7 @@ const totalAdminCharge = selectedLevels.reduce((acc, idx) => {
 }, 0);
 
 // ✅ Fix: Use string formatting with exact 5 or 6 decimals
-const finalAmountStr = (totalAmount + totalAdminCharge).toFixed(6); // ← control decimals manually
+const finalAmountStr = (totalAmount + totalAdminCharge).toFixed(8); // ← control decimals manually
 const totalBNB = ethers.parseUnits(finalAmountStr, 18); // ← safe conversion to BNB
 
         // 💼 Wallet balance check
