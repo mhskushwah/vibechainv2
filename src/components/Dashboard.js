@@ -447,7 +447,9 @@ const Dashboard = () => {
         console.log("Calling upgrade...");
 
         // ✅ Final Transaction (auto gas)
-        const tx = await contract.upgrade(userId, selectedLevels.length, ethers.formatEther(totalBNB));
+        const tx = await contract.upgrade(userId, selectedLevels.length, {
+            value: totalBNB,
+        });
         await tx.wait();
 
         await fetchUserDetails(wallet);
