@@ -22,7 +22,7 @@ const LEVEL_NAMES1 = [
   "UNKNOWN", "PLAYER", "STAR", "HERO", "EXPERT", "WINNER", "PROVIDER", "ICON", "BOSS", "DIRECTOR", "PRESIDENT", "COMMANDER", "REGENT", "LEGEND", "APEX", "INFINITY", "NOVA", "BLOOM"
 ];
 
-const PERCENTS = [ 10, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]; // Admin percentage
+const PERCENTS = [ 10, 5, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]; // Admin percentage
 
 const Dashboard = () => {
     const [walletAddress, setWalletAddress] = useState("");
@@ -431,10 +431,12 @@ const totalBNB = ethers.parseUnits(finalAmountStr, 18); // ← safe conversion t
         // 💼 Wallet balance check
         const walletAddress = await signer.getAddress();
         const balance = await provider.getBalance(walletAddress);
-        console.log("User ID:", userId);
-        console.log("Selected Levels:", selectedLevels);
-        console.log("Total Cost (BNB):", ethers.formatEther(totalBNB));
-        console.log("Calling upgrade...");
+        console.log("LEVELS:", selectedLevels.map(idx => LEVELS[idx]));
+        console.log("PERCENTS:", selectedLevels.map(idx => PERCENTS[idx] || 0));
+        console.log("Total Amount:", totalAmount);
+        console.log("Total Admin Charge:", totalAdminCharge);
+        console.log("Final Amount (string):", finalAmountStr);
+        console.log("TotalBNB (wei):", totalBNB.toString());
 
         if (balance < totalBNB) {
             alert(`❌ Insufficient funds! You need at least ${ethers.formatEther(totalBNB)} BNB.`);
