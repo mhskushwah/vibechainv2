@@ -9,6 +9,7 @@ import RecentIncome from './components/RecentIncome';
 import Navbar from './components/Navbar';
 import './components/Navbar.css';  // Agar aap chahein toh styling yahan rakh sakte hain
 import Logout from './components/Logout';
+import Royalty from './components/Royalty';
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/communityinfo" element={<CommunityInfo />} />
         <Route path="/recentincome" element={<RecentIncome />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/royalty" element={<Royalty />} />
 
         
 

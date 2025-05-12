@@ -99,6 +99,8 @@ const Navbar = () => {
           <li><Link to="/communitytree" className="nav-link" onClick={closeMenu}><FaTree /> Community Tree</Link></li>
           <li><Link to="/communityinfo" className="nav-link" onClick={closeMenu}><FaInfoCircle /> Community Info</Link></li>
           <li><Link to="/recentincome" className="nav-link" onClick={closeMenu}><FaTachometerAlt /> Recent Income</Link></li>
+          <li><Link to="/royalty" className="nav-link" onClick={closeMenu}><FaTachometerAlt /> Royalty Income</Link></li>
+
           <li><button className="nav-link logout-btn" onClick={handleLogout}><FaSignOutAlt /> Logout</button></li>
         </ul>
       </div>
