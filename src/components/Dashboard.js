@@ -918,7 +918,7 @@ const finalAmount = totalAmount + totalAdminCharge;
                     </svg>
                   </a>
                   <a
-                    href="https://chat.whatsapp.com/B6vqtyWk0V5ElwZ4wJC3Kq"
+                    href="https://chat.whatsapp.com/"
                     target="_blank"
                     className="cursor-pointer"
                   >
