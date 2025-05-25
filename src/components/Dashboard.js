@@ -1071,7 +1071,7 @@ const finalAmount = totalAmount + totalAdminCharge;
               <h4 className="font-bold">VIBE CHAIN Contract opbnb.bscscan</h4>
               <a
                 className="text-yellow-400 underline"
-                href="https://opbnb.bscscan.com/address/0x185D9E85a3761C93187E14f8e88aF5ab4883a452"
+                href="https://opbnb.bscscan.com/address/0x79b8C37FB6e98A64e0Da8c151A9a562F5188e660"
                 target="_blank"
               >
                 (0x79b8C37FB6............a562F5188e660)
