@@ -33,6 +33,8 @@ const Dashboard = () => {
     const [rank, setRank] = useState(0);
     const [isRegistered, setIsRegistered] = useState(false);
     const [lostIncome, setlostIncome] = useState(0);
+    const [royaltyIncome, setroyaltyIncome] = useState(0);
+
     const [directTeam, setDirectTeam] = useState(0);
     const [totalIncome, setTotalIncome] = useState(0);
     const [totalDeposit, setTotalDeposit] = useState(0);
@@ -162,6 +164,8 @@ const Dashboard = () => {
                 setReferralIncome(userData1.referralIncome);
                 setdirectReferralIncome(userData1.directReferralIncome);
                 setlostIncome(userData1.lostIncome);
+                setroyaltyIncome(userData1.royaltyIncome);
+
 
                 const incomeArray = await contract.getLevelIncome(userId);
                 const formattedIncome = incomeArray.map(value => value.toString());
