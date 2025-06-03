@@ -1076,7 +1076,7 @@ const finalAmount = totalAmount + totalAdminCharge;
                 href="https://opbnb.bscscan.com/address/0x6c3f304B85bABEdF3dcdf592cE67189A6c0ACA7b"
                 target="_blank"
               >
-                (0x6c3f304B............9A6c0ACA7b)
+                (0x6c3f304B................9A6c0ACA7b)
               </a>
             </div>
 
