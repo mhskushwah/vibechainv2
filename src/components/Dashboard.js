@@ -715,6 +715,8 @@ const finalAmount = totalAmount + totalAdminCharge;
         { title: "Direct Income (100%)", value: referralIncome, icon: "bnb.png", showBNB: true, isBNB: true },
         { title: "Level Upgrade Income", value: upgradingIncome, icon: "bnb.png", showBNB: true, isBNB: true },
         { title: "Lost Income", value: lostIncome, icon: "bnb.png", showBNB: true, isBNB: true },
+        { title: "Royalty Income", value: royaltyIncome, icon: "bnb.png", showBNB: true, isBNB: true },
+
 
     ].map((item, index) => (
         <div key={index} className="bg-gray-900 bg-opacity-50 p-6 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 rounded-xl shadow-lg border border-gray-800 hover:shadow-2xl transition-all duration-300">
@@ -1071,10 +1073,10 @@ const finalAmount = totalAmount + totalAdminCharge;
               <h4 className="font-bold">VIBE CHAIN Contract opbnb.bscscan</h4>
               <a
                 className="text-yellow-400 underline"
-                href="https://opbnb.bscscan.com/address/0x79b8C37FB6e98A64e0Da8c151A9a562F5188e660"
+                href="https://opbnb.bscscan.com/address/0x6c3f304B85bABEdF3dcdf592cE67189A6c0ACA7b"
                 target="_blank"
               >
-                (0x79b8C37FB6............a562F5188e660)
+                (0x6c3f304B............9A6c0ACA7b)
               </a>
             </div>
 
