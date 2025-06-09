@@ -183,7 +183,7 @@ const Dashboard = () => {
     useEffect(() => {
       const handleAccountsChanged = async (accounts) => {
           if (accounts.length === 0) {
-              // 🔴 No wallet connected → Logout user
+              // No wallet connected → Logout user
               setWalletAddress("");
               setIsRegistered(false);
               setUserId(null);

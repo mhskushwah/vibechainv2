@@ -2,36 +2,84 @@ import React, { useEffect, useState } from "react";
 import { BrowserProvider, ethers, Contract } from "ethers";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../blockchain/config";
 
+
+
+
+
 const Flashout = () => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-    const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // Time reset logic for 8:00 AM daily
+  const getNextResetTime = () => {
+    const now = new Date();
+    const nextReset = new Date();
+    nextReset.setHours(8, 0, 0, 0);
+    if (now >= nextReset) nextReset.setDate(nextReset.getDate() + 1);
+    return nextReset;
+  };
 
-      // Calculate the next reset time (4:00 PM daily)
-      const getNextResetTime = () => {
-        const now = new Date();
-        const nextReset = new Date();
-        nextReset.setHours(16, 0, 0, 0); // 4:00 PM
-        if (now > nextReset) nextReset.setDate(nextReset.getDate() + 1);
-        return nextReset;
+  const getTodayResetTime = () => {
+    const reset = new Date();
+    reset.setHours(8, 0, 0, 0);
+    return reset;
+  };
+
+  useEffect(() => {
+    const lastClaim = localStorage.getItem('lastClaimTime');
+    const now = new Date();
+    const resetTime = getTodayResetTime();
+
+    if (!lastClaim || new Date(lastClaim) < resetTime) {
+      setIsButtonActive(true);
+    }
+
+    const updateTimer = () => {
+      const now = new Date();
+      const diff = getNextResetTime() - now;
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setTimeLeft({ hours, minutes, seconds });
+
+      const refreshed = localStorage.getItem('lastClaimTime');
+      if (!refreshed || new Date(refreshed) < getTodayResetTime()) {
+        setIsButtonActive(true);
+      }
     };
 
-    // Update countdown timer
-    useEffect(() => {
-        const updateTimer = () => {
-            const now = new Date();
-            const diff = getNextResetTime() - now;
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-            setTimeLeft({ hours, minutes, seconds });
-            setIsButtonActive(diff <= 0);
-        };
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-        updateTimer();
-        const interval = setInterval(updateTimer, 1000);
-        return () => clearInterval(interval);
-    }, []);
+  // 👉 Smart contract call
+  const handleClaimRoyalty = async () => {
+    try {
+      if (!window.ethereum) return alert('Please install MetaMask!');
+      setLoading(true);
+
+      const provider = new BrowserProvider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+      const royaltyId = 0; // 👈 Change as needed
+      const tx = await contract.claimRoyalty(royaltyId);
+      await tx.wait();
+
+      localStorage.setItem('lastClaimTime', new Date().toISOString());
+      setIsButtonActive(false);
+      alert('Royalty claimed successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Transaction failed!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
 
 
  
@@ -163,7 +211,7 @@ Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
 work correctly both with client-side routing and a non-root public URL.
 Learn how to configure a non-root public URL by running `npm run build`.
     */}
-  <title>RainBNB</title>
+  <title>VIBE CHAIN</title>
   <style
     dangerouslySetInnerHTML={{
       __html:
@@ -215,12 +263,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
                 </p>
             </div>
             <div className="text-center mt-4">
-                <button
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`}
-                    disabled={!isButtonActive}
-                >
-                    {isButtonActive ? 'Activate' : 'Waiting...'}
-                </button>
+                
             </div>
         </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -245,7 +288,15 @@ Learn how to configure a non-root public URL by running `npm run build`.
                   <p className="text-lg font-bold text-center text-yellow-400">
                     0 BNB
                   </p>
+                  
                 </div>
+       <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -269,6 +320,14 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+
+                <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -292,6 +351,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+                <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -315,6 +381,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+                <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -338,6 +411,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+               <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -361,6 +441,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+               <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -384,6 +471,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+               <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
               <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
                 <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
@@ -407,6 +501,13 @@ Learn how to configure a non-root public URL by running `npm run build`.
                     0 BNB
                   </p>
                 </div>
+               <button
+                onClick={handleClaimRoyalty}
+                disabled={!isButtonActive || loading}
+                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
+                >
+        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
+                </button>
               </div>
             </div>
           </div>
