@@ -512,7 +512,6 @@ Learn how to configure a non-root public URL by running `npm run build`.
             </div>
           </div>
         </div>
-       
       </div>
     </div>
   </div>
