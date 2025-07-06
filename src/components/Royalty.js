@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { BrowserProvider, ethers, Contract } from "ethers";
+import { BrowserProvider, Contract, formatEther } from "ethers";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "../blockchain/config";
 
 
-
+const levelNames = [
+  "PRESIDENT",
+  "COMMANDER",
+  "REGENT",
+  "LEGEND",
+  "APEX",
+  "INFINITY",
+  "NOVA",
+  "BLOOM"
+];
 
 
 const Flashout = () => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [royalties, setRoyalties] = useState(
+    new Array(8).fill({ today: "0", yesterday: "0" })
+  );
+
+
 
   // Time reset logic for 8:00 AM daily
   const getNextResetTime = () => {
@@ -54,6 +68,41 @@ const Flashout = () => {
     return () => clearInterval(interval);
   }, []);
 
+
+
+useEffect(() => {
+  const fetchAllRoyalty = async () => {
+    try {
+      const provider = new BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+      const currentDay = await contract.getCurRoyaltyDay();
+
+      const updated = await Promise.all(
+        Array.from({ length: 8 }, async (_, i) => {
+          const level = 0 + i;
+          const today = await contract.royalty(currentDay, level);
+          const yesterday = await contract.royalty(currentDay - 1n, level);
+          console.log(`Level ${level}: Today = ${formatEther(today)}, Yesterday = ${formatEther(yesterday)}`);
+          return {
+            today: formatEther(today),
+            yesterday: formatEther(yesterday)
+          };
+        })
+      );
+
+      setRoyalties(updated);
+    } catch (err) {
+      console.error("Error fetching royalty:", err);
+    }
+  };
+
+  fetchAllRoyalty();
+}, []);
+
+
+
   // 👉 Smart contract call
   const handleClaimRoyalty = async () => {
     try {
@@ -62,7 +111,7 @@ const Flashout = () => {
 
       const provider = new BrowserProvider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+      const contract = new formatEther.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
       const royaltyId = 0; // 👈 Change as needed
       const tx = await contract.claimRoyalty(royaltyId);
@@ -266,250 +315,51 @@ Learn how to configure a non-root public URL by running `npm run build`.
                 
             </div>
         </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                PRESIDENT
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  
-                </div>
-       <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                COMMANDER
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {levelNames.map((level, index) => (
+    <div
+      key={index}
+      className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between"
+    >
+      <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
+        {level}
+      </h4>
+      <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
+        <p className="text-white text-sm font-semibold">Total Users</p>
+        <span className="text-xl font-bold text-white">0</span>
+        {level === "BLOOM" && (
+        <span className="text-xl font-bold text-white">1</span>
+      )}
+      </div>
+      <div className="mt-4">
+        <p className="text-sm text-gray-300 text-center">Today</p>
+        <p className="text-lg font-bold text-center text-yellow-400">
+          {parseFloat(royalties[index]?.today || "0").toFixed(4)} BNB
+        </p>
+        <p className="text-sm text-gray-300 mt-2 text-center">Previous Day</p>
+        <p className="text-lg font-bold text-center text-yellow-400">
+          {parseFloat(royalties[index]?.yesterday || "0").toFixed(4)} BNB
+        </p>
+      </div>
 
-                <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                REGENT
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-                <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                LEGEND
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-                <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                APEX
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-               <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                INFINITY
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-               <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                NOVA
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">0</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-               <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-              <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between">
-                <h4 className="text-lg font-bold text-yellow-400 mb-2 text-center">
-                BLOOM
-                </h4>
-                <div className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-center">
-                  <p className="text-white text-sm font-semibold">
-                    Total Users
-                  </p>
-                  <span className="text-xl font-bold text-white">1</span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-sm text-gray-300 text-center">Today</p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                  <p className="text-sm text-gray-300 mt-2 text-center">
-                    Previous Day
-                  </p>
-                  <p className="text-lg font-bold text-center text-yellow-400">
-                    0 BNB
-                  </p>
-                </div>
-               <button
-                onClick={handleClaimRoyalty}
-                disabled={!isButtonActive || loading}
-                    className={`mt-4 px-4 py-2 rounded-lg text-white ${isButtonActive ? 'bg-green-600' : 'bg-gray-500'}`} 
-                >
-        {loading ? 'Claiming...' : isButtonActive ? 'Claim Royalty' : 'Already Claimed'}
-                </button>
-              </div>
-            </div>
+      {level === "BLOOM" && (
+        <button
+          onClick={handleClaimRoyalty}
+          disabled={!isButtonActive || loading}
+          className={`mt-4 px-4 py-2 rounded-lg text-white ${
+            isButtonActive ? "bg-green-600" : "bg-gray-500"
+          }`}
+        >
+          {loading
+            ? "Claiming..."
+            : isButtonActive
+            ? "Claim Royalty"
+            : "Already Claimed"}
+        </button>
+      )}
+    </div>
+  ))}
+</div>
           </div>
         </div>
       </div>
