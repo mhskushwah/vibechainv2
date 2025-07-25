@@ -343,19 +343,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
       </div>
 
       {level === "BLOOM" && (
-        <button
-          onClick={handleClaimRoyalty}
-          disabled={!isButtonActive || loading}
-          className={`mt-4 px-4 py-2 rounded-lg text-white ${
-            isButtonActive ? "bg-green-600" : "bg-gray-500"
-          }`}
-        >
-          {loading
-            ? "Claiming..."
-            : isButtonActive
-            ? "Claim Royalty"
-            : "Already Claimed"}
-        </button>
+        
       )}
     </div>
   ))}
