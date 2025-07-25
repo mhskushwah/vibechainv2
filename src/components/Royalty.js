@@ -342,9 +342,7 @@ Learn how to configure a non-root public URL by running `npm run build`.
         </p>
       </div>
 
-      {level === "BLOOM" && (
-        
-      )}
+     
     </div>
   ))}
 </div>
